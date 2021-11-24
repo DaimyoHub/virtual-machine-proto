@@ -1,3 +1,3 @@
 # A very basic virtual machine
 
-* [Development diary](follow_up.md)
+* [Development diary](docs/follow_up.md)

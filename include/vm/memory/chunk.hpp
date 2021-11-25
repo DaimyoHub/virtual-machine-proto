@@ -28,7 +28,7 @@ class MemoryChunk {
 
   bool is_corrupted_;
 
- public:
+ private:
   template <std::size_t size_v>
   MemoryChunk(MemoryDevice<size_v> const& device, byte_ptr begin,
               std::size_t size)

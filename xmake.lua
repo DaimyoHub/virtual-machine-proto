@@ -13,39 +13,45 @@ else
 end
 
 -- Arithmetic and logic unit
-target('vm-alu')
-  set_kind('static')
-  add_files('src/alu/*.cpp')
+--target('vm-logimetic')
+--  set_kind('static')
+--  add_files('src/alu/*.cpp')
 
 
 -- Memory API
-target('vm-mem')
+target('vm-memory')
   set_kind('static')
-  add_files('src/mem/*.cpp')
+  add_files('src/memory/*.cpp')
+
+
+-- Utilities
+target('vm-utilities')
+  set_kind('static')
+  add_files('src/utilities/*.cpp')
 
 
 -- ISA API
-target('vm-asm')
-  set_kind('static')
-  add_files('src/asm/*.cpp')
+--target('vm-assembly')
+--  set_kind('static')
+--  add_files('src/asm/*.cpp')
 
 
 -- Debugger API
-target('vm-dbg')
-  set_kind('static')
-  add_files('src/dbg/*.cpp')
+--target('vm-debugger')
+--  set_kind('static')
+--  add_files('src/dbg/*.cpp')
 
 
 -- Machine API
-target('vm-core')
-  set_kind('static')
-  add_files('src/core/*.cpp')
+--target('vm-processor')
+--  set_kind('static')
+--  add_files('src/core/*.cpp')
 
 
 -- Machine application
-target('vm-cli')
-  set_kind('binary')
-  add_files('src/cli/*.cpp')
+--target('vm')
+--  set_kind('binary')
+--  add_files('src/cli/*.cpp')
 
 
 -- Useless tests...

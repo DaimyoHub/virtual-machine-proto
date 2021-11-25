@@ -5,7 +5,7 @@
 #define VM_MEMORY_CHUNK_HPP
 
 #include <cstddef>
-#include <vm/memory/device.hpp>
+#include <vm/mem/device.hpp>
 
 namespace vm {
 

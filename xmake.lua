@@ -13,45 +13,33 @@ else
 end
 
 -- Arithmetic and logic unit
---target('vm-logimetic')
+--target('vm-alu')
 --  set_kind('static')
 --  add_files('src/alu/*.cpp')
 
 
 -- Memory API
-target('vm-memory')
+target('vm-mem')
   set_kind('static')
-  add_files('src/memory/*.cpp')
-
-
--- Utilities
-target('vm-utilities')
-  set_kind('static')
-  add_files('src/utilities/*.cpp')
+  add_files('src/mem/*.cpp')
 
 
 -- ISA API
---target('vm-assembly')
+--target('vm-asm')
 --  set_kind('static')
 --  add_files('src/asm/*.cpp')
 
 
 -- Debugger API
---target('vm-debugger')
+--target('vm-dbg')
 --  set_kind('static')
 --  add_files('src/dbg/*.cpp')
 
 
 -- Machine API
---target('vm-processor')
---  set_kind('static')
---  add_files('src/core/*.cpp')
-
-
--- Machine application
---target('vm')
---  set_kind('binary')
---  add_files('src/cli/*.cpp')
+target('vm-core')
+  set_kind('static')
+  add_files('src/core/**/*.cpp')
 
 
 -- Useless tests...

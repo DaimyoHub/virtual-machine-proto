@@ -18,7 +18,7 @@
 ### Done
 
 * Started a request system for the VM
-  * The request system will be usefull is all the VM API. It is not limited to
+  * The request system will be usefull in all the VM API. It is not limited to
   memory managment.
   * The system is based of a request queue progressively filled by request
   descriptors, with a given kind.

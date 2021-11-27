@@ -42,12 +42,6 @@ target('vm-core')
   add_files('src/core/**/*.cpp')
 
 
--- Utilities
-target('vm-utils')
-  set_kind('static')
-  add_files('src/utils/*.cpp')
-
-
 -- Useless tests...
 target('tests')
   set_kind('binary')

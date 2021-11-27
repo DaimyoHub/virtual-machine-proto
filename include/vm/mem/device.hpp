@@ -8,7 +8,8 @@
 #include <cassert>
 #include <cstddef>
 #include <iterator>
-#include <vm/utils/device_id.hpp>
+#include <vm/core/dev/device.hpp>
+#include <vm/core/dev/id.hpp>
 
 namespace vm {
 
@@ -20,20 +21,19 @@ namespace vm {
  * @tparam size_v, amount of available space (in bytes).
  */
 template <std::size_t size_v>
-class MemoryDevice {
+class MemoryDevice : public Device {
  public:
   using byte_ptr = std::byte* const;
 
  private:
   std::array<std::byte, size_v> basic_handle_;
   byte_ptr base_;
-  DeviceID id_ = DeviceID::as_unused();
 
  public:
   MemoryDevice(int device_id)
       : basic_handle_{},
         base_{&basic_handle_[0]},
-        id_{DeviceID(DeviceKind::MEMORY, device_id)} {
+        Device(DeviceKind::MEMORY, device_id) {
     assert(device_id < 16 and device_id > 0);
   }
 

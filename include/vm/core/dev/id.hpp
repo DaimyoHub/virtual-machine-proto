@@ -1,5 +1,5 @@
-#ifndef VM_UTILS_DEVICE_ID_HPP
-#define VM_UTILS_DEVICE_ID_HPP
+#ifndef VM_DEV_ID_HPP
+#define VM_DEV_ID_HPP
 
 #include <cassert>
 #include <cstddef>
@@ -46,7 +46,8 @@ class DeviceID {
   }
 
   DeviceID(DeviceID&& other) = delete;
-  DeviceID(DeviceID const& other) = delete;
+
+  DeviceID(DeviceID const& other) : raw_id_{other.raw_id_} {}
 
   /**
    * Constructs an unusable ID. It may essentially be used in the declaration of
@@ -81,4 +82,4 @@ class DeviceID {
 
 }  // namespace vm
 
-#endif  // VM_UTILS_DEVICE_ID_HPP
+#endif  // VM_DEV_ID_HPP

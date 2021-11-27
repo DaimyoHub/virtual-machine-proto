@@ -8,6 +8,7 @@
 #include <cassert>
 #include <cstddef>
 #include <iterator>
+#include <vm/utils/device_id.hpp>
 
 namespace vm {
 
@@ -26,9 +27,15 @@ class MemoryDevice {
  private:
   std::array<std::byte, size_v> basic_handle_;
   byte_ptr base_;
+  DeviceID id_ = DeviceID::as_unused();
 
  public:
-  MemoryDevice() : basic_handle_{}, base_{&basic_handle_[0]} {}
+  MemoryDevice(int device_id)
+      : basic_handle_{},
+        base_{&basic_handle_[0]},
+        id_{DeviceID(DeviceKind::MEMORY, device_id)} {
+    assert(device_id < 16 and device_id > 0);
+  }
 
  public:
   byte_ptr get_base() const { return base_; }

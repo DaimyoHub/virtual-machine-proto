@@ -1,5 +1,5 @@
-#ifndef VM_UTILITIES_REQUEST_QUEUE_HPP
-#define VM_UTILITIES_REQUEST_QUEUE_HPP
+#ifndef VM_CORE_REQ_QUEUE_HPP
+#define VM_CORE_REQ_QUEUE_HPP
 
 #include <cassert>
 #include <mutex>
@@ -21,10 +21,10 @@ namespace vm {
  *
  * @tparam request_descriptor_t, the request descriptor type.
  */
-template <class request_descriptor_t>
+template <RequestKind kind_v>
 class RequestQueue {
  private:
-  std::vector<request_descriptor_t> requests_;
+  std::vector<RequestDescriptor<kind_v>> requests_;
   std::mutex lock_;
 
  public:
@@ -54,9 +54,8 @@ class RequestQueue {
  public:
   /**
    * Adds a request descriptor to the head of the queue.
-   *
    */
-  void enqueue(request_descriptor_t descriptor) {
+  void enqueue(RequestDescriptor<kind_v> descriptor) {
     std::lock_guard<std::mutex> lock(lock_);  // lock
     requests_.emplace_back(descriptor);
   }
@@ -73,7 +72,7 @@ class RequestQueue {
    *
    * @pre The queue must not be empty.
    */
-  request_descriptor_t dequeue() {
+  RequestDescriptor<kind_v> dequeue() {
     assert(not is_empty());
 
     std::lock_guard<std::mutex> lock(lock_);
@@ -88,4 +87,4 @@ class RequestQueue {
 
 }  // namespace vm
 
-#endif  // VM_UTILITIES_REQUEST_QUEUE_HPP
+#endif  // VM_CORE_REQ_QUEUE_HPP

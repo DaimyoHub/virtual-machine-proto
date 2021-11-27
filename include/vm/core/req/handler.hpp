@@ -1,5 +1,5 @@
-#ifndef VM_UTILITIES_REQUEST_HANDLER_HPP
-#define VM_UTILITIES_REQUEST_HANDLER_HPP
+#ifndef VM_CORE_REQ_HANDLER_HPP
+#define VM_CORE_REQ_HANDLER_HPP
 
 #include <stdexcept>
 #include <vm/core/req/descriptor.hpp>
@@ -16,7 +16,7 @@ namespace vm {
 template <RequestKind kind_v>
 class RequestHandler {
  private:
-  RequestQueue<RequestDescriptor<kind_v>> queue_;
+  RequestQueue<kind_v> queue_;
 
  public:
   RequestHandler() : queue_{} {}
@@ -44,4 +44,4 @@ class RequestHandler {
 
 }  // namespace vm
 
-#endif  // VM_UTILITIES_REQUEST_HANDLER_HPP
+#endif  // VM_CORE_REQ_HANDLER_HPP

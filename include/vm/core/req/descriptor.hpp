@@ -1,5 +1,5 @@
-#ifndef VM_UTILITIES_REQUEST_DESCRIPTOR_HPP
-#define VM_UTILITIES_REQUEST_DESCRIPTOR_HPP
+#ifndef VM_CORE_REQ_DESCRIPTOR_HPP
+#define VM_CORE_REQ_DESCRIPTOR_HPP
 
 #include <vm/core/req/kind.hpp>
 
@@ -13,4 +13,4 @@ class RequestDescriptor {
 
 }  // namespace vm
 
-#endif  // VM_UTILITIES_REQUEST_DESCRIPTOR_HPP
+#endif  // VM_CORE_REQ_DESCRIPTOR_HPP

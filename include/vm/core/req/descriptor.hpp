@@ -1,7 +1,7 @@
 #ifndef VM_UTILITIES_REQUEST_DESCRIPTOR_HPP
 #define VM_UTILITIES_REQUEST_DESCRIPTOR_HPP
 
-#include <vm/core/request/kind.hpp>
+#include <vm/core/req/kind.hpp>
 
 namespace vm {
 

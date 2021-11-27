@@ -5,8 +5,8 @@
 #include <mutex>
 #include <type_traits>
 #include <vector>
-#include <vm/core/request/descriptor.hpp>
-#include <vm/core/request/kind.hpp>
+#include <vm/core/req/descriptor.hpp>
+#include <vm/core/req/kind.hpp>
 
 namespace vm {
 
@@ -15,6 +15,9 @@ namespace vm {
  * virtual machine core. It is made to stock descriptors, so that it fits the
  * request model design. See the request descriptor class documentation for more
  * informations.
+ *
+ * This data structure is thread-safe. All mutation operations are protected by
+ * a mutex.
  *
  * @tparam request_descriptor_t, the request descriptor type.
  */
@@ -78,7 +81,7 @@ class RequestQueue {
   }
 
   /**
-   * Gets the count of request descriptor stocked in the queue.
+   * Gets the count of request descriptors stocked in the queue.
    */
   std::size_t get_size() const { return requests_.size(); }
 };

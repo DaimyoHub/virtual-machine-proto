@@ -2,9 +2,9 @@
 #define VM_UTILITIES_REQUEST_HANDLER_HPP
 
 #include <stdexcept>
-#include <vm/core/request/descriptor.hpp>
-#include <vm/core/request/kind.hpp>
-#include <vm/core/request/queue.hpp>
+#include <vm/core/req/descriptor.hpp>
+#include <vm/core/req/kind.hpp>
+#include <vm/core/req/queue.hpp>
 
 namespace vm {
 
@@ -19,6 +19,8 @@ class RequestHandler {
   RequestQueue<RequestDescriptor<kind_v>> queue_;
 
  public:
+  RequestHandler() : queue_{} {}
+
   RequestHandler(RequestHandler const&) = delete;
   RequestHandler& operator=(RequestHandler const&) = delete;
 

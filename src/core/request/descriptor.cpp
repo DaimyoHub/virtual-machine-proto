@@ -1,1 +1,0 @@
-#include <vm/core/request/descriptor.hpp>

@@ -28,3 +28,18 @@
 * Continue the request system
   * Continue to implement the basic structure of the system.
   * Begin to implement the request consumer.
+
+## 11/27/2021
+
+### Done
+
+* Finished the basic structure of the request system.
+
+* Added a device ID system for device identification.
+  * It is composed of two parts: the device kind (memory, serial, etc.) and a 
+  unique numeric ID.
+
+* Added a memory allocator for the virtual machine.
+
+### Plan
+

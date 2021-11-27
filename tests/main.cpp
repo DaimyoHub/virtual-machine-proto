@@ -7,7 +7,7 @@
 #include <vm/utils/device_id.hpp>
 
 int main() {
-  vm::MemoryDevice<256> mem;
+  auto mem = vm::MemoryDevice<256>(1);
   // auto test = vm::MemoryChunk(mem, mem.get_base(), 64);
 
   auto id = vm::DeviceID(vm::DeviceKind::MEMORY, 3);

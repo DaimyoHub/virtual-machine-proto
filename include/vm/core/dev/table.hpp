@@ -15,8 +15,8 @@ class DeviceTable {
   std::unordered_map<DeviceID, device_ptr> devices_;
 
  public:
-  void register_device(Device const& device) {
-    // devices_.insert(device.get_id(), &device);
+  void register_device(Device& device) {
+    devices_.insert({device.get_id(), &device});
   }
 
   void remove_device_by_id(DeviceID id) { devices_.erase(id); }

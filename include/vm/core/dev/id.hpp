@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cstddef>
+#include <functional>
 #include <iostream>
 
 namespace vm {
@@ -78,8 +79,19 @@ class DeviceID {
    * Gets the numeric ID of the device.
    */
   int get_id() const { return raw_id_ & Layout::id; }
+
+  friend bool operator==(DeviceID lhs, DeviceID rhs) {
+    return lhs.get_id() == rhs.get_id();
+  }
 };
 
 }  // namespace vm
+
+template <>
+struct std::hash<vm::DeviceID> {
+  std::size_t operator()(vm::DeviceID id) const noexcept {
+    return std::hash<unsigned char>{}(id.get_id());
+  }
+};
 
 #endif  // VM_DEV_ID_HPP

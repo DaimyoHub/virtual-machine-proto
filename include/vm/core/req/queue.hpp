@@ -6,7 +6,6 @@
 #include <type_traits>
 #include <vector>
 #include <vm/core/req/descriptor.hpp>
-#include <vm/core/req/kind.hpp>
 
 namespace vm {
 

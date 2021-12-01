@@ -54,6 +54,10 @@
     cost: the kind-specific request handling part of the system is not easily
     accessible by the user, its modification is intrusive.
 
+* Refactored the request handling API:
+  * Separated the interface from the implementation.
+  * Documented APIs.
+
 ### Plan
 
 * Continue the request handling system
@@ -62,3 +66,7 @@
 * Think about a non-intrusive design for specific-kind request handling
 
 * Begin the request format specification
+
+* Optimize the request manager runner:
+  * Activate the runner only when requests are available, instead of handling
+  it forever ?

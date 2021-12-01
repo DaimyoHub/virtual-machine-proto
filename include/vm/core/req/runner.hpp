@@ -7,27 +7,32 @@
 
 namespace vm {
 
+namespace detail {
+
 class RequestManagerRunner {
  private:
   RequestManager& handled_manager_;
   std::thread worker_;
 
  public:
-  RequestManagerRunner(RequestManager& manager)
-      : handled_manager_{manager},
-        worker_{std::thread(&RequestManagerRunner::run_manager, this)} {}
+  RequestManagerRunner(RequestManager& manager);
 
-  ~RequestManagerRunner() { worker_.join(); }
+  RequestManagerRunner(RequestManagerRunner const& other) = delete;
+  RequestManagerRunner& operator=(RequestManagerRunner const& other) = delete;
 
-  void run_manager() {
-    while (true) {
-      if (handled_manager_.has_available_requests())
-        handled_manager_.handle_last_request();
+  RequestManagerRunner(RequestManagerRunner&& other) = delete;
+  RequestManagerRunner& operator=(RequestManagerRunner&& other) = delete;
 
-      std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-  }
+  ~RequestManagerRunner();
+
+  /// Runs the attached request manager in a separated thread.
+  void run_manager();
 };
+
+}  // namespace detail
+
+/// Runs the given request manager in a separated thread.
+void run_request_manager(RequestManager& manager);
 
 }  // namespace vm
 

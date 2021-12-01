@@ -3,8 +3,7 @@
 
 namespace vm {
 
-enum class RequestKind { MEMORY, __UNUSED };
-
+enum class RequestKind { __UNUSED, MEMORY };
 }
 
 #endif  // VM_CORE_REQ_KIND_HPP

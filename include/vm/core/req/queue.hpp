@@ -9,6 +9,8 @@
 
 namespace vm {
 
+namespace detail {
+
 /**
  * The request queue represents a queue stocking requests dedicated to the
  * virtual machine core. It is made to stock descriptors, so that it fits the
@@ -17,8 +19,6 @@ namespace vm {
  *
  * This data structure is thread-safe. All mutation operations are protected by
  * a mutex.
- *
- * @tparam request_descriptor_t, the request descriptor type.
  */
 class RequestQueue {
  private:
@@ -26,61 +26,33 @@ class RequestQueue {
   std::mutex lock_;
 
  public:
-  RequestQueue() : requests_{}, lock_{} {}
+  RequestQueue() = default;
 
-  RequestQueue(RequestQueue const& other)
-      : requests_{other.requests_}, lock_{} {}
+  RequestQueue(RequestQueue const& other);
+  RequestQueue& operator=(RequestQueue const& other);
 
-  RequestQueue& operator=(RequestQueue const& other) {
-    requests_ = other.requests_;
+  RequestQueue(RequestQueue&& other);
+  RequestQueue& operator=(RequestQueue&& other);
 
-    return *this;
-  }
-
-  RequestQueue(RequestQueue&& other)
-      : requests_{std::move(other.requests_)}, lock_{} {}
-
-  RequestQueue& operator=(RequestQueue&& other) {
-    requests_ = std::move(other.requests_);
-
-    return *this;
-  }
-
-  ~RequestQueue() { requests_.clear(); }
+  ~RequestQueue();
 
  public:
-  /**
-   * Adds a request descriptor to the head of the queue.
-   */
-  void enqueue(RequestDescriptor descriptor) {
-    std::lock_guard<std::mutex> lock(lock_);  // lock
-    requests_.emplace_back(descriptor);
-  }
+  /// Adds a request descriptor to the head of the queue.
+  void enqueue(RequestDescriptor descriptor);
 
-  /**
-   * Checks if the queue is empty.
-   */
-  bool is_empty() const { return requests_.empty(); }
+  /// Checks if the queue is empty.
+  bool is_empty() const;
 
-  /**
-   * Removes the request descriptor from the queue tail.
-   *
-   * @return request_descriptor_t, the request at the tail of the queue.
-   *
-   * @pre The queue must not be empty.
-   */
-  RequestDescriptor dequeue() {
-    assert(not is_empty());
+  /// Removes the request descriptor from the queue tail.
+  ///
+  /// @pre The queue must not be empty.
+  RequestDescriptor dequeue();
 
-    std::lock_guard<std::mutex> lock(lock_);
-    return *requests_.erase(requests_.begin());
-  }
-
-  /**
-   * Gets the count of request descriptors stocked in the queue.
-   */
-  std::size_t get_size() const { return requests_.size(); }
+  /// Gets the count of request descriptors stocked in the queue.
+  std::size_t get_size() const;
 };
+
+}  // namespace detail
 
 }  // namespace vm
 

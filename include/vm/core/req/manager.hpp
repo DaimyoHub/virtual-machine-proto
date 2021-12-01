@@ -1,11 +1,7 @@
 #ifndef VM_CORE_REQ_MANAGER_HPP
 #define VM_CORE_REQ_MANAGER_HPP
 
-#include <stdexcept>
-#include <type_traits>
 #include <vm/core/req/descriptor.hpp>
-#include <vm/core/req/handler.hpp>
-#include <vm/core/req/kind.hpp>
 #include <vm/core/req/queue.hpp>
 #include <vm/core/req/result.hpp>
 
@@ -13,10 +9,13 @@ namespace vm {
 
 class RequestManager {
  private:
-  RequestQueue queue_;
+  detail::RequestQueue queue_;
 
  public:
-  RequestManager() : queue_{} {}
+  RequestManager() = default;
+
+  RequestManager(RequestManager&& other);
+  RequestManager& operator=(RequestManager&& other);
 
   RequestManager(RequestManager const&) = delete;
   RequestManager& operator=(RequestManager const&) = delete;
@@ -24,26 +23,21 @@ class RequestManager {
   virtual ~RequestManager() = default;
 
  public:
-  void handle_last_request() {
-    auto request = queue_.dequeue();
-    auto result = vm::handle_request(request.get_request_kind(), request);
+  /// Handles the last request in the queue.
+  ///
+  /// @pre The queue must not be empty.
+  void handle_last_request();
 
-    // send_back_request_handling_result(result, descriptor.get_sender());
-  }
+  /// Adds a request to the request queue.
+  void enqueue_request(RequestDescriptor descriptor);
 
-  template <class sender_t>
-  void send_back_request_handling_result(RequestResult const& result,
-                                         sender_t& sender) {
-    sender.push_request_handling_result(result);
-  }
+  /// Pops the last request in the queue.
+  ///
+  /// @pre The queue must not be empty.
+  RequestDescriptor dequeue_request();
 
-  void enqueue_request(RequestDescriptor descriptor) {
-    queue_.enqueue(descriptor);
-  }
-
-  RequestDescriptor dequeue_request() { return queue_.dequeue(); }
-
-  bool has_available_requests() const { return not queue_.is_empty(); }
+  /// Checks if the request queue has available requests to handle.
+  bool has_available_requests() const;
 };
 
 }  // namespace vm

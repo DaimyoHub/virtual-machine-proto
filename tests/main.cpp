@@ -1,10 +1,11 @@
 #include <iostream>
-#include <vm/core/dev/id.hpp>
-#include <vm/core/req/handler.hpp>
-#include <vm/core/req/queue.hpp>
-#include <vm/mem/chunk.hpp>
-#include <vm/mem/device.hpp>
+#include <vm/core/request.hpp>
+#include <vm/mem/allocator.hpp>
 
 int main() {
-  
+  auto man = vm::RequestManager();
+  man.enqueue_request(vm::RequestDescriptor{});
+  man.enqueue_request(vm::RequestDescriptor{});
+
+  auto runner = vm::RequestManagerRunner(man);
 }

@@ -12,6 +12,10 @@ else
   add_defines('VM_RELEASE')
 end
 
+if is_plat('linux') then
+  add_syslinks('pthread')
+end
+
 -- Arithmetic and logic unit
 --target('vm-alu')
 --  set_kind('static')

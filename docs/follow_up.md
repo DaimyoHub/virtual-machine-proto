@@ -41,5 +41,24 @@
 
 * Added a memory allocator for the virtual machine.
 
+## 12/01/2021
+
+### Done
+
+* Improved the request handling
+  * I had a manager runner, that handles all requests in a separated thread.
+  * I completed the whole request handling system, just a bit:
+    * A handling result and its management system was added
+    * The whole system architecture was improved, to allow the handling of
+    many different request kinds at the same time. This design decision had a
+    cost: the kind-specific request handling part of the system is not easily
+    accessible by the user, its modification is intrusive.
+
 ### Plan
 
+* Continue the request handling system
+  * Link it to the device interface
+
+* Think about a non-intrusive design for specific-kind request handling
+
+* Begin the request format specification

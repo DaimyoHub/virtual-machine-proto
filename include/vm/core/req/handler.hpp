@@ -1,46 +1,35 @@
 #ifndef VM_CORE_REQ_HANDLER_HPP
 #define VM_CORE_REQ_HANDLER_HPP
 
+#include <iostream>
 #include <stdexcept>
 #include <vm/core/req/descriptor.hpp>
 #include <vm/core/req/kind.hpp>
-#include <vm/core/req/queue.hpp>
+#include <vm/core/req/result.hpp>
 
 namespace vm {
 
-/**
- * Represents a generic request handler.
- *
- * @tparam kind_v, the kind of request to be handled.
- */
-template <RequestKind kind_v>
-class RequestHandler {
- private:
-  RequestQueue<kind_v> queue_;
+namespace detail {
 
- public:
-  RequestHandler() : queue_{} {}
+RequestResult handle_memory_request(RequestDescriptor descriptor) {
+  std::cout << "Handling memory request..." << std::endl;
+  return RequestResult{};
+}
 
-  RequestHandler(RequestHandler const&) = delete;
-  RequestHandler& operator=(RequestHandler const&) = delete;
+}  // namespace detail
 
-  virtual ~RequestHandler() = default;
+RequestResult handle_request(RequestKind kind, RequestDescriptor descriptor) {
+  switch (kind) {
+    case RequestKind::MEMORY:
+      return detail::handle_memory_request(descriptor);
 
- public:
-  virtual void handle_request(RequestDescriptor<kind_v> descriptor) {
-    throw std::runtime_error(
-        "vm::RequestHandler<...>::handle_request(...) in "
-        "'/include/vm/utilities/request_handler.hpp' not overriden.");
+    case RequestKind::__UNUSED:
+    default:
+      throw std::runtime_error(
+          "Request handler not implemented for a request of kind "
+          "'RequestKind::__UNUSED'.");
   }
-
-  RequestKind get_request_kind() const { return kind_v; }
-
-  void enqueue_request(RequestDescriptor<kind_v> descriptor) {
-    queue_.enqueue(descriptor);
-  }
-
-  RequestDescriptor<kind_v> dequeue_request() { return queue_.dequeue(); }
-};
+}
 
 }  // namespace vm
 

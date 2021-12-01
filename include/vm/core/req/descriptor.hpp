@@ -5,10 +5,15 @@
 
 namespace vm {
 
-template <RequestKind kind_v>
 class RequestDescriptor {
+ private:
+  RequestKind kind_;
+
  public:
-  int value{0};
+  int value = 0;
+
+ public:
+  RequestKind get_request_kind() const { return kind_; }
 };
 
 }  // namespace vm

@@ -20,10 +20,9 @@ namespace vm {
  *
  * @tparam request_descriptor_t, the request descriptor type.
  */
-template <RequestKind kind_v>
 class RequestQueue {
  private:
-  std::vector<RequestDescriptor<kind_v>> requests_;
+  std::vector<RequestDescriptor> requests_;
   std::mutex lock_;
 
  public:
@@ -39,11 +38,10 @@ class RequestQueue {
   }
 
   RequestQueue(RequestQueue&& other)
-      : requests_{std::move(other.requests_)}, lock_{std::move(other.lock_)} {}
+      : requests_{std::move(other.requests_)}, lock_{} {}
 
   RequestQueue& operator=(RequestQueue&& other) {
     requests_ = std::move(other.requests_);
-    lock_ = std::move(other.lock_);
 
     return *this;
   }
@@ -54,7 +52,7 @@ class RequestQueue {
   /**
    * Adds a request descriptor to the head of the queue.
    */
-  void enqueue(RequestDescriptor<kind_v> descriptor) {
+  void enqueue(RequestDescriptor descriptor) {
     std::lock_guard<std::mutex> lock(lock_);  // lock
     requests_.emplace_back(descriptor);
   }
@@ -71,7 +69,7 @@ class RequestQueue {
    *
    * @pre The queue must not be empty.
    */
-  RequestDescriptor<kind_v> dequeue() {
+  RequestDescriptor dequeue() {
     assert(not is_empty());
 
     std::lock_guard<std::mutex> lock(lock_);

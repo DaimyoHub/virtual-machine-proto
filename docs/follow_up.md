@@ -1,21 +1,12 @@
 ## 11/24/2021
 
-### Done
-
 * Started to develop the memory section
   * A memory device is partially available (there only have the minimal interface)
   * Chunks are partially available too.
     * Chunks are connected to memory devices. They begin at a given memory offset
     and finish at the end of the allocated block.
 
-### Plan
-
-* Create a memory (de)allocation request, request-based system.
-  * Maybe base this system on an interface dedicated to request handling ?
-
 ## 11/25/2021
-
-### Done
 
 * Started a request system for the VM
   * The request system will be usefull in all the VM API. It is not limited to
@@ -23,15 +14,7 @@
   * The system is based of a request queue progressively filled by request
   descriptors, with a given kind.
 
-### Plan
-
-* Continue the request system
-  * Continue to implement the basic structure of the system.
-  * Begin to implement the request consumer.
-
 ## 11/27/2021
-
-### Done
 
 * Finished the basic structure of the request system.
 
@@ -42,8 +25,6 @@
 * Added a memory allocator for the virtual machine.
 
 ## 12/01/2021
-
-### Done
 
 * Improved the request handling
   * I had a manager runner, that handles all requests in a separated thread.
@@ -58,10 +39,22 @@
   * Separated the interface from the implementation.
   * Documented APIs.
 
-### Plan
+## 12/02/2021
+
+* Added a simple output-based debugging system:
+  * It is able to output formatted messages in an output stream
+  * It is possible to enable some kinds of debug messages
+
+* Added debugging support for request handling
+  * The debugging system outputs a message when a memory request is being handled.
+
+## TODO
+
+* Prettify the output messages with colors and bloat.
 
 * Continue the request handling system
   * Link it to the device interface
+  * Implement the request descriptor
 
 * Think about a non-intrusive design for specific-kind request handling
 
@@ -70,15 +63,3 @@
 * Optimize the request manager runner:
   * Activate the runner only when requests are available, instead of handling
   it forever ?
-
-## 12/02/2021
-
-### Done
-
-* Added a simple output-based debugging system:
-  * It is able to output formatted messages in an output stream
-  * It is possible to enable some kinds of debug messages
-
-### Plan
-
-* Prettify the output messages with colors and bloat.

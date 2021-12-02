@@ -2,22 +2,25 @@
 #include <vm/core/req/descriptor.hpp>
 #include <vm/core/req/handler.hpp>
 #include <vm/core/req/result.hpp>
+#include <vm/utils/debug.hpp>
 
 namespace vm {
 
 namespace detail {
 
-RequestResult handle_memory_request(RequestDescriptor descriptor) {
-  std::cout << "Handling memory request..." << std::endl;
+RequestResult handle_memory_request(RTDebug const& debug_handle,
+                                    RequestDescriptor descriptor) {
+  debug_handle.out("Handling memory request");
   return RequestResult{};
 }
 
 }  // namespace detail
 
-RequestResult handle_request(RequestDescriptor descriptor) {
+RequestResult handle_request(RTDebug const& debug_handle,
+                             RequestDescriptor descriptor) {
   switch (descriptor.get_request_kind()) {
     case RequestKind::MEMORY:
-      return detail::handle_memory_request(descriptor);
+      return detail::handle_memory_request(debug_handle, descriptor);
 
     case RequestKind::__UNUSED:
     default:

@@ -46,12 +46,12 @@ class RTDebug {
   /// Outs the given data to the attached output stream, with the given message
   /// kind.
   template <class first_t, class... arg_ts>
-  void out_with_kind(DebugKind kind, first_t&& first, arg_ts&&... args);
+  void out_with_kind(DebugKind kind, first_t&& first, arg_ts&&... args) const;
 
   /// Outs the given data to the attached output stream, formatted to the
   /// default message kind.
   template <class first_t, class... arg_ts>
-  void out(first_t&& first, arg_ts&&... args);
+  void out(first_t&& first, arg_ts&&... args) const;
 
   /// @see RTDebug::out(first_t&& first, arg_ts&&... args)
   template <class arg_t>

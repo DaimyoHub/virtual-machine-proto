@@ -4,15 +4,17 @@
 #include <vm/core/req/descriptor.hpp>
 #include <vm/core/req/queue.hpp>
 #include <vm/core/req/result.hpp>
+#include <vm/utils/debug.hpp>
 
 namespace vm {
 
 class RequestManager {
  private:
   detail::RequestQueue queue_;
+  RTDebug const& debug_handle_;
 
  public:
-  RequestManager() = default;
+  RequestManager(RTDebug const& debug_handle);
 
   RequestManager(RequestManager&& other);
   RequestManager& operator=(RequestManager&& other);

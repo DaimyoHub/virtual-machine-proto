@@ -1,13 +1,18 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
-#include <vm/utils/debug.hpp>
+#include <vm/core/device.hpp>
+#include <vm/core/req/descriptor.hpp>
+#include <vm/core/req/runner.hpp>
+#include <vm/core/request.hpp>
 
 int main() {
-  using namespace vm;
+  auto dbg = vm::RTDebug(std::cout);
+  auto man = vm::RequestManager(dbg);
 
-  auto debug = RTDebug(std::cout);
-  debug.disable_kind(DebugKind::ERROR);
+  auto request = vm::RequestDescriptor{};
 
-  debug << DebugKind::WARNING << "Hello, world!";
+  man.enqueue_request(vm::RequestDescriptor{});
+
+  vm::run_request_manager(man);
 }

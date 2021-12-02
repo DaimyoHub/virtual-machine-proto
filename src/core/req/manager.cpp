@@ -1,11 +1,15 @@
 #include <cassert>
 #include <vm/core/req/handler.hpp>
 #include <vm/core/req/manager.hpp>
+#include <vm/utils/debug.hpp>
 
 namespace vm {
 
+RequestManager::RequestManager(RTDebug const& debug_handle)
+    : debug_handle_{debug_handle} {}
+
 RequestManager::RequestManager(RequestManager&& other)
-    : queue_{std::move(other.queue_)} {}
+    : queue_{std::move(other.queue_)}, debug_handle_(other.debug_handle_) {}
 
 RequestManager& RequestManager::operator=(RequestManager&& other) {
   queue_ = std::move(other.queue_);
@@ -18,7 +22,7 @@ void RequestManager::handle_last_request() {
          "Can not handle the last request in the queue if the queue is empty.");
 
   auto request = queue_.dequeue();
-  auto result = handle_request(request);
+  auto result = handle_request(debug_handle_, request);
 
   // TODO: send back request handling result
 }

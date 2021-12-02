@@ -70,3 +70,15 @@
 * Optimize the request manager runner:
   * Activate the runner only when requests are available, instead of handling
   it forever ?
+
+## 12/02/2021
+
+### Done
+
+* Added a simple output-based debugging system:
+  * It is able to output formatted messages in an output stream
+  * It is possible to enable some kinds of debug messages
+
+### Plan
+
+* Prettify the output messages with colors and bloat.

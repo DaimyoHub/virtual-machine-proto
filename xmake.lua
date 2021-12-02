@@ -26,6 +26,7 @@ end
 target('vm-mem')
   set_kind('static')
   add_files('src/mem/*.cpp')
+  add_deps('vm-utils')
 
 
 -- ISA API
@@ -40,6 +41,12 @@ target('vm-mem')
 --  add_files('src/dbg/*.cpp')
 
 
+-- Other utilities
+target('vm-utils')
+  set_kind('static')
+  add_files('src/utils/*.cpp')
+
+
 -- Machine API
 target('vm-core')
   set_kind('static')
@@ -50,4 +57,4 @@ target('vm-core')
 target('tests')
   set_kind('binary')
   add_files('tests/*.cpp')
-  add_deps('vm-core', 'vm-mem')
+  add_deps('vm-core', 'vm-mem', 'vm-utils')

@@ -1,18 +1,13 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
-#include <vm/core/request.hpp>
-#include <vm/mem/allocator.hpp>
+#include <vm/utils/debug.hpp>
 
 int main() {
   using namespace vm;
 
-  auto man = RequestManager();
+  auto debug = RTDebug(std::cout);
+  debug.disable_kind(DebugKind::ERROR);
 
-  auto desc = RequestDescriptor{};
-  // desc.kind_ = RequestKin;
-
-  man.enqueue_request(desc);
-
-  vm::run_request_manager(man);
+  debug << DebugKind::WARNING << "Hello, world!";
 }

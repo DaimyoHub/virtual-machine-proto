@@ -5,7 +5,7 @@
 
 namespace vm {
 
-RequestManager::RequestManager(RTDebug const& debug_handle)
+RequestManager::RequestManager(RTDebug& debug_handle)
     : debug_handle_{debug_handle} {}
 
 RequestManager::RequestManager(RequestManager&& other)
@@ -36,5 +36,11 @@ RequestDescriptor RequestManager::dequeue_request() { return queue_.dequeue(); }
 bool RequestManager::has_available_requests() const {
   return not queue_.is_empty();
 }
+
+RTDebug const& RequestManager::get_debug_handle() const {
+  return debug_handle_;
+}
+
+RTDebug& RequestManager::get_debug_handle() { return debug_handle_; }
 
 }  // namespace vm

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string_view>
 #include <utility>
+#include <vm/utils/colors.hpp>
 
 namespace vm {
 
@@ -30,16 +31,6 @@ class RTDebug {
   /// Disables the handling of the given debug message kind.
   void disable_kind(DebugKind kind);
 
-#if 0
-  template <class... arg_ts>
-  void out(DebugKind kind, std::string_view message_base, arg_ts&&... format) {
-    if (static_cast<unsigned int>(kind) < disabled_kind_) {
-      output_stream_ << fmt::format(message_base,
-                                    std::forward<arg_ts>(format)...);
-    }
-  }
-#endif
-
   /// Sets the default debug message kind.
   void set_debug_kind(DebugKind kind);
 
@@ -55,10 +46,16 @@ class RTDebug {
 
   /// @see RTDebug::out(first_t&& first, arg_ts&&... args)
   template <class arg_t>
-  friend RTDebug& operator<<(RTDebug& debug_handle, arg_t&& data);
+  friend RTDebug const& operator<<(RTDebug const& debug_handle, arg_t&& data);
 
   /// @see RTDebug::set_debug_kind(DebugKind kind)
   friend RTDebug& operator<<(RTDebug& debug_handle, DebugKind kind);
+
+  /// Gets the current debug kind
+  DebugKind get_debug_kind() const;
+
+  /// Gets the output stream attached
+  std::ostream& get_output_stream();
 };
 
 #include <vm/utils/debug.ipp>

@@ -16,4 +16,8 @@ RTDebug& operator<<(RTDebug& debug_handle, DebugKind kind) {
   return debug_handle;
 }
 
+DebugKind RTDebug::get_debug_kind() const { return kind_; }
+
+std::ostream& RTDebug::get_output_stream() { return output_stream_; }
+
 }  // namespace vm

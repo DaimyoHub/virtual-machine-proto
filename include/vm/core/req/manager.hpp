@@ -11,10 +11,10 @@ namespace vm {
 class RequestManager {
  private:
   detail::RequestQueue queue_;
-  RTDebug const& debug_handle_;
+  RTDebug& debug_handle_;
 
  public:
-  RequestManager(RTDebug const& debug_handle);
+  RequestManager(RTDebug& debug_handle);
 
   RequestManager(RequestManager&& other);
   RequestManager& operator=(RequestManager&& other);
@@ -40,6 +40,12 @@ class RequestManager {
 
   /// Checks if the request queue has available requests to handle.
   bool has_available_requests() const;
+
+  /// Gets the debug handle
+  RTDebug const& get_debug_handle() const;
+
+  /// Gets the debug handle
+  RTDebug& get_debug_handle();
 };
 
 }  // namespace vm

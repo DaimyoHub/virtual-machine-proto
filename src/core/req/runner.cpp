@@ -1,3 +1,4 @@
+#include <vm/core/req/manager.hpp>
 #include <vm/core/req/runner.hpp>
 
 namespace vm {
@@ -12,11 +13,13 @@ RequestManagerRunner::~RequestManagerRunner() { worker_.join(); }
 
 void RequestManagerRunner::run_manager() {
   while (true) {
-    if (handled_manager_.has_available_requests())
+    if (handled_manager_.has_available_requests()) {
+      handled_manager_.get_debug_handle().get_output_stream().flush();
       handled_manager_.handle_last_request();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
   }
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(1));
 }
 
 }  // namespace detail

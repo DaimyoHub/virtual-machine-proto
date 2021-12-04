@@ -1,18 +1,19 @@
-#include <chrono>
 #include <iostream>
-#include <thread>
-#include <vm/core/device.hpp>
-#include <vm/core/req/descriptor.hpp>
-#include <vm/core/req/runner.hpp>
 #include <vm/core/request.hpp>
+#include <vm/utils/debug.hpp>
 
 int main() {
-  auto dbg = vm::RTDebug(std::cout);
-  auto man = vm::RequestManager(dbg);
+  using namespace vm;
 
-  auto request = vm::RequestDescriptor{};
+  auto dbg = RTDebug(std::cout);
+  auto man = RequestManager(dbg);
 
-  man.enqueue_request(vm::RequestDescriptor{});
+  auto req = RequestDescriptor{};
 
-  vm::run_request_manager(man);
+  man.enqueue_request(req);
+  man.enqueue_request(req);
+  man.enqueue_request(req);
+  man.enqueue_request(req);
+
+  run_request_manager(man);
 }

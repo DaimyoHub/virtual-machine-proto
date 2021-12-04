@@ -46,13 +46,6 @@ class RTDebug {
   template <class first_t, class... arg_ts>
   void out(first_t&& first, arg_ts&&... args) const;
 
-  /// @see RTDebug::out(first_t&& first, arg_ts&&... args)
-  template <class arg_t>
-  friend RTDebug const& operator<<(RTDebug const& debug_handle, arg_t&& data);
-
-  /// @see RTDebug::set_debug_kind(DebugKind kind)
-  friend RTDebug& operator<<(RTDebug& debug_handle, DebugKind kind);
-
   /// Gets the current debug kind
   DebugKind get_debug_kind() const;
 
@@ -81,12 +74,6 @@ template <class first_t, class... arg_ts>
 void RTDebug::out(first_t&& first, arg_ts&&... args) const {
   out_with_kind(kind_, std::forward<first_t>(first),
                 std::forward<arg_ts>(args)...);
-}
-
-template <class arg_t>
-RTDebug const& operator<<(RTDebug const& debug_handle, arg_t&& data) {
-  debug_handle.out(std::forward<arg_t>(data));
-  return debug_handle;
 }
 
 }  // namespace vm

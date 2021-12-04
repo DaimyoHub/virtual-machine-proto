@@ -1,9 +1,8 @@
 #include <iostream>
-#include <vm/core/request.hpp>
-#include <vm/core/sys/call.hpp>
-#include <vm/core/sys/kind.hpp>
-#include <vm/utils/debug.hpp>
-#include <vm/utils/time.hpp>
+#include <vm/device.hpp>
+#include <vm/request.hpp>
+#include <vm/system.hpp>
+#include <vm/utils.hpp>
 
 int main() {
   using namespace vm;

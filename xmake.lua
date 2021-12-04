@@ -16,46 +16,31 @@ if is_plat('linux') then
   add_syslinks('pthread')
 end
 
--- Arithmetic and logic unit
---target('vm-alu')
---  set_kind('static')
---  add_files('src/alu/*.cpp')
-
-
--- Memory API
-target('vm-mem')
-  set_kind('static')
-  add_files('src/mem/*.cpp')
-  add_deps('vm-utils')
-
-
--- ISA API
---target('vm-asm')
---  set_kind('static')
---  add_files('src/asm/*.cpp')
-
-
--- Debugger API
---target('vm-dbg')
---  set_kind('static')
---  add_files('src/dbg/*.cpp')
-
-
 -- Other utilities
 target('vm-utils')
   set_kind('static')
   add_files('src/utils/*.cpp')
 
-
--- Machine API
-target('vm-core')
+-- Device interface
+target('vm-device')
   set_kind('static')
-  add_files('src/core/**/*.cpp')
+  add_files('src/device/*.cpp')
   add_deps('vm-utils')
 
+-- Request handling system
+target('vm-request')
+  set_kind('static')
+  add_files('src/request/*.cpp')
+  add_deps('vm-utils')
+
+-- System APIs
+target('vm-system')
+  set_kind('static')
+  add_files('src/system/*.cpp')
+  add_deps('vm-utils')
 
 -- Useless tests...
 target('tests')
   set_kind('binary')
   add_files('tests/*.cpp')
-  add_deps('vm-core', 'vm-mem', 'vm-utils')
+  add_deps('vm-device', 'vm-request', 'vm-system', 'vm-utils')

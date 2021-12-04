@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vm/core/request.hpp>
 #include <vm/utils/debug.hpp>
+#include <vm/utils/time.hpp>
 
 int main() {
   using namespace vm;

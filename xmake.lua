@@ -51,6 +51,7 @@ target('vm-utils')
 target('vm-core')
   set_kind('static')
   add_files('src/core/**/*.cpp')
+  add_deps('vm-utils')
 
 
 -- Useless tests...

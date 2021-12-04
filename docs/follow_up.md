@@ -48,6 +48,12 @@
 * Added debugging support for request handling
   * The debugging system outputs a message when a memory request is being handled.
 
+## 12/04/2021
+
+* Added some informations to the debug output
+  * Added a colored output to the prefix
+  * Added a prefix containing the date and the time of the message
+
 ## TODO
 
 * Prettify the output messages with colors and bloat.

@@ -10,7 +10,7 @@ namespace detail {
 
 RequestResult handle_memory_request(RTDebug const& debug_handle,
                                     RequestDescriptor descriptor) {
-  debug_handle << "Handling memory request";
+  debug_handle.out("Handling memory request");
   return RequestResult{};
 }
 

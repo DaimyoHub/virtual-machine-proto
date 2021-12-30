@@ -4,17 +4,17 @@
 #include <vm/request/descriptor.hpp>
 #include <vm/request/queue.hpp>
 #include <vm/request/result.hpp>
-#include <vm/utils/debug.hpp>
+#include <vm/utils/logger.hpp>
 
 namespace vm {
 
 class RequestManager {
  private:
   detail::RequestQueue queue_;
-  RTDebug& debug_handle_;
+  Logger& logger_;
 
  public:
-  RequestManager(RTDebug& debug_handle);
+  RequestManager(Logger& logger);
 
   RequestManager(RequestManager&& other);
   RequestManager& operator=(RequestManager&& other);
@@ -42,10 +42,10 @@ class RequestManager {
   bool has_available_requests() const;
 
   /// Gets the debug handle
-  RTDebug const& get_debug_handle() const;
+  Logger const& get_logger() const;
 
   /// Gets the debug handle
-  RTDebug& get_debug_handle();
+  Logger& get_logger();
 };
 
 }  // namespace vm

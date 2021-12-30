@@ -4,20 +4,21 @@
 #include <vm/system.hpp>
 #include <vm/utils.hpp>
 
+#include "vm/request/descriptor.hpp"
+#include "vm/request/kind.hpp"
+#include "vm/request/manager.hpp"
+#include "vm/request/runner.hpp"
+
 int main() {
   using namespace vm;
 
-  auto dbg = RTDebug(std::cout);
-  auto man = RequestManager(dbg);
+  auto log = Logger::attach_to_stream(std::clog);
+  auto man = RequestManager(log);
 
-  auto req = RequestDescriptor{};
+  man.enqueue_request(RequestDescriptor{});
+  man.enqueue_request(RequestDescriptor{});
+  man.enqueue_request(RequestDescriptor{});
+  man.enqueue_request(RequestDescriptor{});
 
-  man.enqueue_request(req);
-  man.enqueue_request(req);
-  man.enqueue_request(req);
-  man.enqueue_request(req);
-
-  // run_request_manager(man);
-
-  auto x = Syscall(SyscallKind::MEM_ALLOC);
+  run_request_manager(man);
 }

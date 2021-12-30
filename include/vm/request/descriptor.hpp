@@ -7,7 +7,7 @@ namespace vm {
 
 class RequestDescriptor {
  private:
-  RequestKind kind_;
+  RequestKind kind_ = RequestKind::MEMORY;
 
  public:
   int value = 0;

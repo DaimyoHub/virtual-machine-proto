@@ -3,7 +3,7 @@
 
 #include <vm/request/descriptor.hpp>
 #include <vm/request/result.hpp>
-#include <vm/utils/debug.hpp>
+#include <vm/utils/logger.hpp>
 
 namespace vm {
 
@@ -21,7 +21,7 @@ RequestResult handle_memory_request(RequestDescriptor descriptor);
 /// Handles all kinds of given requests.
 ///
 /// @return RequestResult, the result of the treatment.
-RequestResult handle_request(RTDebug const& debug_handle,
+RequestResult handle_request(Logger const& logger,
                              RequestDescriptor descriptor);
 
 }  // namespace vm

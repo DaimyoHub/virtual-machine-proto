@@ -1,25 +1,25 @@
 #include <vm/request/descriptor.hpp>
 #include <vm/request/handler.hpp>
 #include <vm/request/result.hpp>
-#include <vm/utils/debug.hpp>
+#include <vm/utils/logger.hpp>
 
 namespace vm {
 
 namespace detail {
 
-RequestResult handle_memory_request(RTDebug const& debug_handle,
+RequestResult handle_memory_request(Logger const& logger,
                                     RequestDescriptor descriptor) {
-  debug_handle.out("Handling memory request");
+  logger.note("Handling memory request");
   return RequestResult{};
 }
 
 }  // namespace detail
 
-RequestResult handle_request(RTDebug const& debug_handle,
+RequestResult handle_request(Logger const& logger,
                              RequestDescriptor descriptor) {
   switch (descriptor.get_request_kind()) {
     case RequestKind::MEMORY:
-      return detail::handle_memory_request(debug_handle, descriptor);
+      return detail::handle_memory_request(logger, descriptor);
 
     case RequestKind::__UNUSED:
     default:

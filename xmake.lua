@@ -1,5 +1,7 @@
 add_rules('mode.debug', 'mode.release')
 
+add_requires('fmt')
+
 set_languages('cxx17')
 add_includedirs('include/')
 
@@ -20,6 +22,7 @@ end
 target('vm-utils')
   set_kind('static')
   add_files('src/utils/*.cpp')
+  add_packages('fmt')
 
 -- Device interface
 target('vm-device')

@@ -54,6 +54,16 @@
   * Added a colored output to the prefix
   * Added a prefix containing the date and the time of the message
 
+## 12/30/2021
+
+* Completely restructured the logging system
+  * Renamed the core class (RTDebug -> Logger)
+  * Oversimplified the interface
+  * Adapt all component to the new logging system
+
+  * It is now easy to use and the interface is uniform. I also got rid of this
+  disgusting flush in the request manager runner !
+
 ## TODO
 
 * Prettify the output messages with colors and bloat.

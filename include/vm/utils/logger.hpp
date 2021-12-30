@@ -26,47 +26,85 @@ class Logger {
 
   ~Logger() = default;
 
+  /**
+   * Construct a logger attached to the given output stream.
+   *
+   * @param ostream, the stream attached to the logger.
+   */
   static Logger attach_to_stream(std::ostream& ostream);
 
  public:
+  /**
+   * Get the attached output stream.
+   */
   std::ostream const& get_output_stream() const;
 
+  /**
+   * Get the attached output stream.
+   */
   std::ostream& get_output_stream();
 
+  /**
+   * Get the current output level.
+   */
   int get_output_level() const;
 
+  /**
+   * Set the current output level.
+   *
+   * @pre level ∈ {1, 2, 3}
+   */
   void set_output_level(int level);
 
+  /**
+   * Make the output prefix. It is composed of the date and the color of the
+   * output level.
+   *
+   * @param color, the color of the output level.
+   * @return std::string, the formatted prefix.
+   */
   std::string make_prefix(Color color) const;
 
+  /**
+   * Output a note with a given message.
+   *
+   * @param message, the raw unformatted message.
+   * @param args, the arguments of the message.
+   */
   template <class... arg_ts>
   void note(std::string_view message, arg_ts&&... args) const {
-    if (get_output_level() >= 3) {
-      auto current_time = get_current_time();
+    if (get_output_level() >= 3)
       output_stream_ << make_prefix(ColorTable::GREEN)
                      << fmt::format(message, std::forward<arg_ts>(args)...)
                      << '\n';
-    }
   }
 
+  /**
+   * Output a warning with a given message.
+   *
+   * @param message, the raw unformatted message.
+   * @param args, the arguments of the message.
+   */
   template <class... arg_ts>
   void warn(std::string_view message, arg_ts&&... args) const {
-    if (get_output_level() >= 2) {
-      auto current_time = get_current_time();
+    if (get_output_level() >= 2)
       output_stream_ << make_prefix(ColorTable::YELLOW)
                      << fmt::format(message, std::forward<arg_ts>(args)...)
                      << '\n';
-    }
   }
 
+  /**
+   * Output a failure with a given message.
+   *
+   * @param message, the raw unformatted message.
+   * @param args, the arguments of the message.
+   */
   template <class... arg_ts>
   void fail(std::string_view message, arg_ts&&... args) const {
-    if (get_output_level() >= 1) {
-      auto current_time = get_current_time();
+    if (get_output_level() >= 1)
       output_stream_ << make_prefix(ColorTable::RED)
                      << fmt::format(message, std::forward<arg_ts>(args)...)
                      << '\n';
-    }
   }
 };
 

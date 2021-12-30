@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <ostream>
 #include <sstream>
@@ -23,7 +24,12 @@ std::string Logger::make_prefix(Color color) const {
 
 int Logger::get_output_level() const { return enabled_level_; }
 
-void Logger::set_output_level(int level) { enabled_level_ = level; }
+void Logger::set_output_level(int level) {
+  assert(level == 1 || level == 2 ||
+         level == 3 && "The output level must be an integer between 1 and 3.");
+
+  enabled_level_ = level;
+}
 
 std::ostream const& Logger::get_output_stream() const { return output_stream_; }
 
